@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficas Horizontales</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        /* Contenedor principal */
+        .chart-container {
+            display: flex;
+            flex-wrap: wrap; 
+            justify-content: center; /* Centra horizontalmente */
+            gap: 30px; /* Espaciado entre las gráficas */
+        }
+        .chart-item {
+            display: flex;
+            flex-direction: column; /* coloca los título por encima de la gráfica */
+            align-items: center; /* Centrara gráficas y títulos */
+            text-align: center;
+        }
+        canvas, #histogram, #boxplot {
+            max-width: 400px; /* Ancho máximo de las gráficas */
+            height: 300px; /* Alto para las gráficas */
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">GRAFICAS DINAMICAS</h1>
+    
+    <div class="chart-container">
+        <!-- Gráfica de líneas -->
+        <div class="chart-item">
+            <h2>Gráfica de Líneas</h2>
+            <canvas id="lineChart"></canvas>
+        </div>
+        <!-- /Gráfica de barras -->
+        <div class="chart-item">
+            <h2>Gráfica de Barras</h2>
+            <canvas id="barChart"></canvas>
+        </div>
+        <!-- Gráfica de dispersión -->
+        <div class="chart-item">
+            <h2>Gráfica de Dispersión</h2>
+            <canvas id="scatterChart"></canvas>
+        </div>
+        <!-- Gráfica de pastel -->
+        <div class="chart-item">
+            <h2>Gráfica de Pastel</h2>
+            <canvas id="pieChart"></canvas>
+        </div>
+        <!-- Gráfica de histograma -->
+        <div class="chart-item">
+            <h2>Gráfica de Histograma</h2>
+            <div id="histogram"></div>
+        </div>
+        <!-- Gráfica de cajas (Boxplot) -->
+        <div class="chart-item">
+            <h2>Gráfica de Cajas (Boxplot)</h2>
+            <div id="boxplot"></div>
+        </div>
+    </div>
+
+    <script>
+        // Gráfica de Líneas
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        new Chart(lineCtx, {
+            type: 'line',
+            data: {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+                datasets: [{
+                    label: 'Ventas',
+                    data: [10, 20, 15, 25, 30, 45],
+                    borderColor: '#f06292',
+                    borderWidth: 2
+                }]
+            }
+        });
+
+        // Gráfica de Barras
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+                datasets: [{
+                    label: 'Ventas',
+                    data: [10, 20, 15, 25, 30],
+                    backgroundColor: ['#FFC0CB', '#c39bd3', '#a9d39e', '#fdfd96', '#B0E0E6']
+                }]
+            }
+        });
+
+        // Gráfica de Dispersión
+        const scatterCtx = document.getElementById('scatterChart').getContext('2d');
+        new Chart(scatterCtx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Puntos',
+                    data: [
+                        { x: 1, y: 2 },
+                        { x: 2, y: 3 },
+                        { x: 3, y: 4 },
+                        { x: 4, y: 5 }
+                    ],
+                    backgroundColor: '#DAA520'
+                }]
+            }
+        });
+
+        // Gráfica de Pastel
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO'],
+                datasets: [{
+                    data: [5, 15, 10, 20, 25],
+                    backgroundColor: ['#DDA0DD', '#FF69B4', '#ADD8E6', '#90EE90', '#FFDAB9']
+                }]
+            }
+        });
+
+        // Gráfica Histograma con Plotly
+        const histogramData = [{
+            x: [1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5],
+            type: 'histogram',
+            marker: { color: '#DB7093' }
+        }];
+        Plotly.newPlot('histogram', histogramData, { title: 'Histograma' });
+
+        // Gráfica Cajas (Boxplot) con Plotly
+        const boxplotData = [{
+            y: [5, 15, 10, 20, 25],
+            type: 'box',
+            marker: { color: '#20B2AA' }
+        }];
+        Plotly.newPlot('boxplot', boxplotData, { title: 'Gráfica de Cajas (Boxplot)' });
+    </script>
+</body>
+</html>
